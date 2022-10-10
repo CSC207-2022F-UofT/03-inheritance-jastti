@@ -15,9 +15,10 @@ public abstract class Bag {
      *       - an int named capacity
      *       - an array of Strings named contents
      */
-    private String color = "";
-    private int numberOfContents = 0;
-    private int capacity = 0;
+    private String color;
+    private int numberOfContents;
+    private int capacity;
+//    private String[] contents = new String[100];
     private String[] contents = {};
 
 
@@ -30,11 +31,11 @@ public abstract class Bag {
      * be empty (e.g. numberOfContents is 0 and an empty String array for
      * its contents.)
      */
-    public Bag(String bagColour, int bagCap){
-        bagColour = color;
-        bagCap = capacity;
-//        numberOfContents = 0;
-//        contents = {};
+    public Bag(String color, int capacity){
+        this.color = color;
+        this.capacity = capacity;
+        this.numberOfContents = 0;
+        this.contents = new String[capacity];
     }
 
     /*
@@ -84,11 +85,9 @@ public abstract class Bag {
     public boolean addItem(String item){
         // , int numberOfContents, int capacity
         if (numberOfContents < capacity){
-            for (int i = 0; i < capacity; i++) {
-                contents[i] = item;
-                numberOfContents -= 1;
-            }
-        return true;
+            this.contents[numberOfContents] = item;
+            numberOfContents += 1;
+            return true;
         } else {
             return false;
         }
@@ -109,8 +108,10 @@ public abstract class Bag {
         if (l == 0){
             return null;
         }
-        String lastItem = contents[l-1];
-        Arrays.copyOf(contents, l - 1);
+        String lastItem = contents[numberOfContents-1];
+        contents[numberOfContents-1] = null;
+//        Arrays.copyOf(contents, numberOfContents-1);
+        numberOfContents -= 1;
         return lastItem;
     }
 
